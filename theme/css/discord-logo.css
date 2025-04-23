@@ -1,0 +1,9 @@
+.discord-link {
+    font-size: 1.2em;
+    color: inherit;
+}
+
+.discord-link:hover {
+    color: #7289da;
+    /* Discord blurple */
+}

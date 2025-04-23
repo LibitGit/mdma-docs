@@ -1,0 +1,798 @@
+<!DOCTYPE HTML>
+<html lang="pl" class="light sidebar-visible" dir="ltr">
+
+<head>
+    <!-- Book generated using mdBook -->
+    <meta charset="UTF-8">
+    <title>Multipurpose Discord to Margonem Addons</title>
+    <meta name="robots" content="noindex">
+
+
+    <!-- Custom HTML head -->
+
+    <!-- Discord logo from FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="icon" href="favicon.svg">
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/chrome.css">
+    <link rel="stylesheet" href="css/print.css" media="print">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+    <link rel="stylesheet" href="fonts/fonts.css">
+
+    <!-- Highlight.js Stylesheets -->
+    <link rel="stylesheet" id="highlight-css" href="highlight.css">
+    <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+    <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+    <!-- Custom theme stylesheets -->
+    <link rel="stylesheet" href="theme/css/discord-logo.css">
+
+
+    <!-- Provide site root and default themes to javascript -->
+    <script>
+        const path_to_root = "";
+        const default_light_theme = "light";
+        const default_dark_theme = "navy";
+    </script>
+    <!-- Start loading toc.js asap -->
+    <script src="toc.js"></script>
+</head>
+
+<body>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Spis Treści"
+                            aria-label="Spis Treści" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Zmień Motyw"
+                            aria-label="Zmień Motyw" aria-haspopup="true" aria-expanded="false"
+                            aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Wyszukaj. (Hotkey: S)"
+                            aria-label="Wyszukaj." aria-expanded="false" aria-keyshortcuts="S"
+                            aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Multipurpose Discord to Margonem Addons</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/LibitGit/mdma" title="Repozytorium Github" aria-label="Repozytorium Github">
+                            <i id="git-repository-button" class="fa-lg fa-brands fa-github"
+                                style="vertical-align: -.075em;"></i>
+                        </a>
+                        <a class="discord-link" href="https://discord.gg/dodatki-margonem"
+                            title="Dołącz na nasz Discord!" aria-label="Dołącz na nasz Discord!">
+                            <i class="fa-sm fa-brands fa-discord"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..."
+                            aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function (link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="wprowadzenie"><a class="header" href="#wprowadzenie">Wprowadzenie</a></h1>
+<p><strong>Multipurpose Discord to Margonem Addons (MDMA)</strong> to pierwszy publicznie dostępny zestaw dodatków do gry <a href="https://www.margonem.pl" target="_blank" rel="noopener noreferrer">Margonem</a> napisany w języku Rust, zainspirowany zestawami <a href="https://maddonz.barlag.pl" target="_blank" rel="noopener noreferrer">Maddonz</a>, <a href="https://gargonem.margoworld.pl" target="_blank" rel="noopener noreferrer">Gargonem</a> oraz <a href="https://forum.margonem.pl/?task=forum&show=posts&id=502192" target="_blank" rel="noopener noreferrer">REVO</a>. Rozszerzenie przeglądarkowe <strong>MDMA</strong> oferuje znacznie więcej możliwości, niż standardowe skrypty działające w <a href="https://www.tampermonkey.net" target="_blank" rel="noopener noreferrer">Tampermonkey</a>.</p>
+<p>Celem zestawu jest zapewnienie graczom dostępu do najlepszych dodatków na rynku, bez konieczności żonglowania skryptami z wielu niezależnych źródeł.</p>
+<blockquote>
+<p>Jakiś błąd lub pomysł na zmianę? <a href="https://discord.gg/dodatki-margonem" target="_blank" rel="noopener noreferrer">Zapraszamy na nasz serwer Discord!</a></p>
+</blockquote>
+<hr />
+<p>W tej książce znajdziesz komplet informacji o dostępnych dodatkach oraz szczegółowy opis funkcjonalności zestawu. Tak, zestaw jest rozbudowany na tyle, że napisałem do niego dokumentację 🫠</p>
+<p>Wszystko znajduje się w pasku bocznym (może być zwinięty na urządzeniach mobilnych), ale oto szybki podgląd zawartości:</p>
+<ol>
+<li><a href="addons/download.html">Instalacja</a></li>
+<li><a href="addons/index.html">Lista Dodatków</a></li>
+<li><a href="api/index.html">Wstęp Do API</a></li>
+<li><a href="todo/index.html">Nadchodzące Zmiany</a></li>
+<li><a href="misc/legality.html">Legalność Zestawu</a></li>
+<li><a href="misc/faq.html">Najczęstsze Pytania</a></li>
+</ol>
+<p>Kilka istotnych informacji, zanim przejdziemy do instalacji. MDMA tworzone jest przez graczy (a właściwie jednego <a href="https://www.margonem.pl/profile/view,8938162" target="_blank" rel="noopener noreferrer">gracza</a>) – dla graczy. Poprzez głosowania na <a href="https://discord.gg/dodatki-margonem" target="_blank" rel="noopener noreferrer">discordzie</a> to właśnie Wy decydujecie o tym, co jako następne pojawi się w zestawie!</p>
+<p>Dokładam wszelkich starań, aby każdy dodatek zawierał wszystkie potrzebne funkcjonalności i nie zagrażał bezpieczeństwu kont użytkowników.</p>
+<blockquote>
+<p><strong>INFO:</strong> Od początku istnienia zestawu<sup class="footnote-reference" id="fr-first-ver-1"><a href="#footnote-first-ver">1</a></sup>, żaden użytkownik nie został zbanowany za korzystanie z MDMA! Dodatkowo, od niedawna współpracujemy z administracją gry, aby na bieżąco monitorować i dbać o zgodność dodatków z regulaminem.</p>
+</blockquote>
+<p>Wygląd managera<sup class="footnote-reference" id="fr-new-manager-1"><a href="#footnote-new-manager">2</a></sup> dodatków jest zainspirowany modem <a href="https://absolllute.com/" target="_blank" rel="noopener noreferrer">Mega Hack</a>.
+Okna dodatków przypominają te z gry, ale technicznie to zupełnie inna liga — są <a href="https://github.com/Pauan/rust-dominator">szybsze, lżejsze</a> i <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM#encapsulation_from_javascript">niewykrywalne</a> dla kodu spoza zestawu.
+Kod MDMA nie korzysta z rozwiązań Garmory, wszystko pisane jest od zera w Rust 🚀</p>
+<hr>
+<ol class="footnote-definition"><li id="footnote-first-ver">
+<p>Pierwsza oficjalna wersja zestawu została upubliczniona 30.11.2023 <a href="#fr-first-ver-1">↩</a></p>
+</li>
+<li id="footnote-new-manager">
+<p>Wygląd managera jest aktualnie w przebudowie! <a href="#fr-new-manager-1">↩</a></p>
+</li>
+</ol><div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="instalacja"><a class="header" href="#instalacja">Instalacja</a></h1>
+<p>Zestaw MDMA jest dostępny <strong>wyłącznie</strong> jako rozszerzenie przeglądarkowe. Aby zacząć korzystać z MDMA, wystarczy je zainstalować — cały proces zajmuje dosłownie chwilę.</p>
+<blockquote>
+<p>Udostępnienie rozszerzenia w sklepach planowane w wersji 0.15.0</p>
+</blockquote>
+<ul>
+<li><strong>Chrome Web Store</strong> - WKRÓTCE™</li>
+<li><strong>Firefox Add-Ons</strong> - WKRÓTCE™</li>
+</ul>
+<!-- TODO: Link to extension.zip -->
+<ol>
+<li>Zapisz oraz rozpakuj <a href="addons/">folder rozszerzenia</a> na swoim urządzeniu.</li>
+<li>Wejdź na <strong>chrome://extensions</strong></li>
+<li>W prawym górnym rogu włącz <strong>Tryb dewelopera</strong>.</li>
+<li>Kliknij <strong>Załaduj rozpakowane</strong>.</li>
+<li>Znajdź i wybierz folder rozszerzenia.</li>
+<li>Wejdź do gry <a href="https://www.margonem.pl" target="_blank" rel="noopener noreferrer">margonem</a>.</li>
+<li>Zaloguj się do rozszerzenia za pomocą konta Discord.</li>
+<li>Gotowe! Miłego korzystania ☺️</li>
+</ol>
+<!-- TODO: Link to video -->
+<p>Jeśli wolisz, możesz też obejrzeć <a href="https://youtu.be/xvFZjo5PgG0?si=V74Et0TlHRRe6auu">wersję video</a>.</p>
+<p>W przypadku problemów podczas instalacji napisz do nas na <a href="https://discord.gg/dodatki-margonem">discordzie</a>!</p>
+<hr />
+<h1 id="kiedy-aktualizować-zestaw"><a class="header" href="#kiedy-aktualizować-zestaw">Kiedy Aktualizować Zestaw</a></h1>
+<blockquote>
+<p>Ta sekcja dotyczy wersji rozszerzenia w <code>chrome://extensions</code><sup class="footnote-reference" id="fr-note-1"><a href="#footnote-note">1</a></sup>, nie wersji wyświetlanej wewnątrz gry!</p>
+</blockquote>
+<p>MDMA stosuje <a href="https://semver.org/lang/pl/">wersjonowanie semantyczne</a> (polecam się z tym zapoznać!) podczas wydawania nowych wersji, co oznacza, że numer wersji odzwierciedla zmiany w funkcjonalności oraz kompatybilności z poprzednimi wersjami.</p>
+<ul>
+<li>Wersjonowanie zestawu wygląda następująco: x.y.z, gdzie:
+<ul>
+<li>x - numer wersji MAJOR (obecnie nas nie interesuje),</li>
+<li>y - numer wersji MINOR,</li>
+<li>z - numer wersji PATCH.</li>
+</ul>
+</li>
+<li>W przypadku, gdy masz inny numer MINOR (np 0.11.0), niż aktualna wersja (np 0.13.0) do poprawnego działania zestawu wymagana jest aktualizacja.</li>
+<li>W przypadku, gdy twój numer PATCH jest inny niż numer PATCH aktualnej wersji nie jest wymagana aktualizacja do poprawnego działania zestawu.</li>
+</ul>
+<h1 id="-wersja-nightly-"><a class="header" href="#-wersja-nightly-">👻 Wersja Nightly 👻</a></h1>
+<p>Link instalacyjny do wersji testowej zestawu znajduje się <a href="addons/">TUTAJ</a>.</p>
+<p>W tej wersji zawsze znajdują się najświeższe zmiany, jednak mogą występować błędy związane z nowymi funkcjonalnościami.</p>
+<h1 id="zgłaszanie-błędów"><a class="header" href="#zgłaszanie-błędów">Zgłaszanie Błędów</a></h1>
+<p>W przypadku napotkania błędu podczas korzystania z zestawu, prosimy o kontakt na naszym <a href="https://discord.gg/dodatki-margonem">discordzie</a>.</p>
+<hr>
+<ol class="footnote-definition"><li id="footnote-note">
+<p>Wersje te są niezależne od siebie dopóki zestaw nie znajduje się na chrome webstore. <a href="#fr-note-1">↩</a></p>
+</li>
+</ol><div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="lista-dodatków"><a class="header" href="#lista-dodatków">Lista Dodatków</a></h1>
+<p>W tym rozdziale znajdują się wszystkie informacje na temat dodatków zestawu. Zanim jednak przejdziemy do szczegółowych opisów każdego z nich, zapoznajmy się z podstawowymi pojęciami.</p>
+<h3 id="przyciski-wewnątrz-managera"><a class="header" href="#przyciski-wewnątrz-managera">Przyciski Wewnątrz Managera</a></h3>
+<p><img src="addons/images/settings_button.png" alt="settings-button" /> - Przełącznik okna ustawień dodatku.</p>
+<p><img src="addons/images/toggle_size_button.png" alt="active-settings-button" /> - Przełącznik okna aktywnych ustawień dodatku.</p>
+<!-- TODO: Add link to on-error -->
+<p><span style="margin-left: -5px">📋</span> - Przycisk do kopiowania logów<sup class="footnote-reference" id="fr-no-sensitive-info-1"><a href="#footnote-no-sensitive-info">1</a></sup> z gry, potrzebnych przy <a href="addons/">zgłaszaniu błędu</a> w zestawie. Znajduje się w nagłówku <strong>Konsola</strong>.</p>
+<h3 id="okna-dodatków"><a class="header" href="#okna-dodatków">Okna Dodatków</a></h3>
+<p>Wewnątrz zestawu rozróżniane są dwa rodzaje okienek dodatków:</p>
+<ul>
+<li>okno ustawień,</li>
+<li>okno <strong>aktywnych</strong> ustawień.</li>
+</ul>
+<p><strong>Okno ustawień dodatku</strong> jest najczęściej tym bardziej rozbudowanym oraz zawiera w sobie wszystkie ustawienia dodatku, które nie muszą być natychmiastowo dostępne np. ustawianie skrótów klawiszowych. Okno ustawień można włączyć niezależnie od tego czy dodatek jest włączony, czy nie.</p>
+<p><strong>Okno aktywnych ustawień dodatku</strong> to miejsce na najważniejsze opcje dostępne w trakcie korzystania z dodatku. Okno aktywnych ustawień wyświetla się wtedy i tylko wtedy, gdy dodatek oraz okno aktywnych ustawień są włączone. Od okna ustawień różni się jeszcze tym, że (w zależności od dodatku) można zmieniać jego rozmiar.</p>
+<!-- TODO: Refactor -->
+<h1 id="szukanie-dodatków"><a class="header" href="#szukanie-dodatków">Szukanie Dodatków</a></h1>
+<p>Jeżeli jesteś zainteresowany działaniem konkretnego dodatku zalecam wyszukać go za pomocą lupy (lewy górny róg ekranu).</p>
+<hr>
+<ol class="footnote-definition"><li id="footnote-no-sensitive-info">
+<p>Logi zawierają wyłącznie informacje na temat otoczenia bohatera oraz kod błędu. <a href="#fr-no-sensitive-info-1">↩</a></p>
+</li>
+</ol><div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/adaptive_builds/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="adaptacyjne-zestawy-do-walki"><a class="header" href="#adaptacyjne-zestawy-do-walki">Adaptacyjne Zestawy Do Walki</a></h1>
+<p><strong>🔒 <em>Ten dodatek jest dostępny wyłącznie w wersji Premium.</em> 🔒</strong></p>
+<p>Dodatek automatycznie zmienia zestaw do walki w zależności od otoczenia.</p>
+<p><img src="addons/list/adaptive_builds/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-ustawień"><a class="header" href="#okno-ustawień">Okno Ustawień</a></h1>
+<h4 id="ustawienia-ogólne"><a class="header" href="#ustawienia-ogólne">Ustawienia ogólne</a></h4>
+<p><img src="addons/list/adaptive_builds/images/settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia ogólne" /></p>
+<ul>
+<li>Możliwość automatycznej zmiany zestawu do walki w zależności od tego czy w aktualnej lokacji, znajduje się potwór o randze <span style="color: darkorange;">kolos</span>.</li>
+</ul>
+<p><em>Ostatnia aktualizacja: 0.14.4</em></p>
+<div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/accept_summon/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="akceptowanie-przywołań"><a class="header" href="#akceptowanie-przywołań">Akceptowanie Przywołań</a></h1>
+<p>Dodatek automatycznie akceptuje przywołania na mapę od określonych graczy.</p>
+<p><img src="addons/list/accept_summon/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-ustawień-1"><a class="header" href="#okno-ustawień-1">Okno Ustawień</a></h1>
+<h4 id="nie-akceptuj-automatycznie-zaproszeń-od"><a class="header" href="#nie-akceptuj-automatycznie-zaproszeń-od">Nie akceptuj automatycznie zaproszeń od</a></h4>
+<p><img src="addons/list/accept_summon/images/exclusion-list.png" class="right" style="padding-left: 5px;" alt="Lista Wykluczeń" /></p>
+Jeżeli nick gracza przywołującego znajduje się na liście wykluczeń, nie zostanie ono automatycznie zaakceptowane. Zamiast tego wybór będzie należał do bohatera.
+<p><em>Ostatnia aktualizacja: 0.14.4</em></p>
+<div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/accept_group/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="akceptowanie-zaproszeń-do-grupy"><a class="header" href="#akceptowanie-zaproszeń-do-grupy">Akceptowanie Zaproszeń Do Grupy</a></h1>
+<p>Dodatek automatycznie akceptuje zaproszenia do grupy od określonych graczy.</p>
+<p><img src="addons/list/accept_group/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-ustawień-2"><a class="header" href="#okno-ustawień-2">Okno Ustawień</a></h1>
+<h4 id="akceptuj-zaproszenia-od"><a class="header" href="#akceptuj-zaproszenia-od">Akceptuj zaproszenia od</a></h4>
+<p><img src="addons/list/accept_group/images/accept-from.png" class="right" style="padding-left: 5px;" alt="Akceptuj zaproszenia od" /></p>
+Dodatek automatycznie zaakceptuje zaproszenia od gracza, jeżeli posiada on którąkolwiek z zaznaczonych relacji. W przeciwnym razie zaproszenie nie zostanie odrzucone.
+<h4 id="nie-akceptuj-automatycznie-zaproszeń-od-1"><a class="header" href="#nie-akceptuj-automatycznie-zaproszeń-od-1">Nie akceptuj automatycznie zaproszeń od</a></h4>
+<p><img src="addons/list/accept_group/images/exclusion-list.png" class="right" style="padding-left: 5px;" alt="Lista Wykluczeń" /></p>
+Jeżeli nick gracza wysyłającego zaproszenie znajduje się na liście wykluczeń, nie zostanie ono automatycznie zaakceptowane. Zamiast tego wybór będzie należał do bohatera.
+<p><em>Ostatnia aktualizacja: 0.14.4</em></p>
+<div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/better_who_is_here/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="gracze-na-mapie"><a class="header" href="#gracze-na-mapie">Gracze Na Mapie</a></h1>
+<p>Dodatek wyświetla listę graczy znajdujących się w aktualnej lokacji, umożliwiając interakcje z każdym z nich.</p>
+<p><img src="addons/list/better_who_is_here/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-ustawień-3"><a class="header" href="#okno-ustawień-3">Okno Ustawień</a></h1>
+<h4 id="ustawienia-ogólne-1"><a class="header" href="#ustawienia-ogólne-1">Ustawienia ogólne</a></h4>
+<ul>
+<li><strong>🔒 Funkcja Premium 🔒</strong> Możliwość automatycznego przerwania dobijania gracza, w przypadku:
+<ul>
+<li>zmiany trasy przez bohatera przed dotarciem do celu,</li>
+<li>opuszczenia przez cel zasięgu ataku.</li>
+</ul>
+</li>
+<li><p><img src="addons/list/better_who_is_here/images/settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia ogólne" /></p>Możliwość otwierania okna aktywnych ustawień za pomocą wbudowaniego do gry widgetu <span style="color: darkorange;">Gracze na mapie</span>.
+</li>
+</ul>
+<h4 id="lista-graczy"><a class="header" href="#lista-graczy">Lista graczy</a></h4>
+<p><img src="addons/list/better_who_is_here/images/player-list-settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia listy graczy" /></p>
+<ul>
+<li>Dostępne opcje sortowania listy to sortowanie względem:
+<ul>
+<li>poziomu - w przypadku takiego samego poziomu gracze sortowani są alfabetycznie,</li>
+<li>nicku,</li>
+<li>profesji - sortowanie dzieli listę na grupy profesji, które ustawiane są w zależności od <strong>ilości graczy o danej profesji</strong>. Wewnątrz poszczególnych grup gracze sortowani są malejąco według poziomu, następnie alfabetycznie według nicku.</li>
+</ul>
+</li>
+<li>Kolejność sortowania pozwala wybrać "kierunek" sortowania - malejący lub rosnący.</li>
+<li>Wyświetlanie poziomów określa w jaki sposób wyświetlać poziomy graczy z listy. Dostępne opcje to:
+<ul>
+<li>Poziom | Poziom operacyjny</li>
+<li>Poziom operacyjny | Poziom</li>
+<li>Tylko poziom operacyjny</li>
+<li>Tylko poziom</li>
+</ul>
+</li>
+</ul>
+<h1 id="okno-aktywnych-ustawień"><a class="header" href="#okno-aktywnych-ustawień">Okno Aktywnych Ustawień</a></h1>
+<h4 id="licznik-graczy"><a class="header" href="#licznik-graczy">Licznik graczy</a></h4>
+<p><img src="addons/list/better_who_is_here/images/player-counter-tip.png" class="right" style="padding-left: 10px;" alt="Licznik graczy tip" /></p>
+<p>Po najechaniu na licznik graczy myszką wyświetlana jest szczegółowa lista relacji graczy znajdujących się w bieżącej lokacji. Ze względu na mechanikę gry, jeżeli gracz jest jednocześnie np. przyjacielem oraz klanowiczem pod uwagę będzie brana tylko <em>ważniejsza</em><sup class="footnote-reference" id="fr-note-1"><a href="#footnote-note">1</a></sup> relacja.</p>
+<h4 id="lista-graczy-1"><a class="header" href="#lista-graczy-1">Lista graczy</a></h4>
+<p>Tabela z graczami znajdującymi się w aktualnej lokacji, w zawartość pojedynczej komórki gracza wchodzą:</p>
+<p><img src="addons/list/better_who_is_here/images/player-list.png" class="right" style="padding-left: 10px;" alt="Lista graczy" /></p>
+<ul>
+<li>nick,</li>
+<li>lista okazywanych aktualnie emocji,</li>
+<li>poziom,</li>
+<li>profesja.</li>
+</ul>
+<p>Komórka jest kolorowana w zależności od relacji oraz przynależności do grupy gracza.
+Dodatkowe informacje wyświetlane po najechaniu myszką to m.in. nazwa klanu i outfit.</p>
+<p>Po dwukliku LPM na komórkę gracza, bohater automatycznie do niego podejdzie.</p>
+<p>Po kliknięciu PPM na komórkę gracza dostępne jest menu kontekstowe w skład którego wchodzą opcje:</p>
+<p><img src="addons/list/better_who_is_here/images/context-menu.png" class="right" style="padding-left: 10px;" alt="Menu kontekstowe" /></p>
+<ul>
+<li><strong>🔒 Funkcja Premium 🔒</strong> <code>Dobijaj</code> - wyznacza gracza na cel:
+<ul>
+<li>po wybraniu tej opcji bohater podejdzie do celu i będzie go atakować, dopóki m.in. przeciwnik się nie teleportuje lub nie rozpocznie się walka.</li>
+</ul>
+</li>
+<li><strong>✅ Funkcja Non-Premium ✅</strong> <code>Atakuj</code> - wyznacza gracza na cel (działa tak samo jak opcja z gry).</li>
+<li><code>Handluj</code> - podchodzi do gracza oraz wysyła żądanie handlu.</li>
+<li><code>Pocałuj</code> - całuje gracza (dostępne od 30 poziomu doświadczenia).</li>
+<li><code>Karmazynowe błogosławieństwo</code> - podchodzi do gracza oraz rzuca na niego karmazynowe błogosławieństwo.</li>
+<li><code>Wyślij wiadomość</code> - rozpoczyna proces wysyłania wiadomości prywatnej do gracza (dostępne jeżeli gracz nie jest wrogiem bohatera).</li>
+<li><code>Pokaż ekwipunek</code> - otwiera okno z ekwipunkiem gracza.</li>
+<li><code>Zaproś do przyjaciół</code> - zaprasza gracza do przyjaciół.</li>
+<li><code>Zaproś do drużyny</code> - zaprasza gracza do drużyny.</li>
+<li><code>Pokaż profil</code> - otwiera okno z profilem gracza.</li>
+</ul>
+<p><img src="addons/list/better_who_is_here/images/target-list.png" class="right" style="padding-left: 5px; margin-bottom: 10px;" alt="Lista celi" /></p>
+Po wybraniu gracza jako celu ataku, zostaje on automatycznie przeniesiony na szczyt listy graczy.
+<p>W takiej sytuacji – a także po najechaniu kursorem na jego komórkę lub kliknięciu jej PPM – pojawia się strzałka wskazująca jego pozycję. Dodatkowo gracz-cel renderowany jest nad wszystkimi obiektami na mapie i otoczony wyraźną ramką.</p>
+<h4 id="wyszukiwarka-graczy"><a class="header" href="#wyszukiwarka-graczy">Wyszukiwarka graczy</a></h4>
+<p><img src="addons/list/better_who_is_here/images/searchbar.png" class="right" style="padding-left: 5px; margin-bottom: 10px;" alt="Wyszukiwarka graczy" /></p>
+<p>Wyszukiwarka u dołu listy umożliwia filtrowanie graczy po nicku.</p>
+<p><em>Ostatnia aktualizacja: 0.14.4</em></p>
+<hr>
+<ol class="footnote-definition"><li id="footnote-note">
+<p>W planach i tak jest obejście więc nie bd tego tłumaczył jo. <a href="#fr-note-1">↩</a></p>
+</li>
+</ol><div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/kastrat/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="kastrat"><a class="header" href="#kastrat">Kastrat</a></h1>
+<p><strong>🔒 <em>Ten dodatek jest dostępny wyłącznie w wersji Premium.</em> 🔒</strong></p>
+<p>Potocznie nazywany <em>Auto X</em>. Dodatek służy gonieniu i automatycznemu atakowaniu graczy, wybieranych na podstawie określonych przez użytkownika kryteriów.</p>
+<p>W przeciwieństwie do wszystkich <em>Auto X</em>-ów na rynku, <strong>Kastrat</strong> działa w oparciu o <a href="https://quickbirdstudios.com/blog/what-is-functional-reactive-programming-frp/">analizę otoczenia bohatera</a>, co znacząco zmniejsza ilość zużywanych zasobów.
+Dzięki niestandardowej metodzie ataku, potrafi działać nawet o <strong>33%–50% szybciej</strong> (w zależności od interfejsu), skuteczniej wyłapując graczy niż jakiekolwiek inne rozwiązania.</p>
+<blockquote>
+<p><strong>INFO:</strong> Uruchomienie wielu <em>Auto X</em>-ów jednocześnie nie zwiększy skuteczności żadnego z nich!</p>
+</blockquote>
+<p><img src="addons/list/kastrat/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-ustawień-4"><a class="header" href="#okno-ustawień-4">Okno Ustawień</a></h1>
+<h4 id="ustawienia-ogólne-2"><a class="header" href="#ustawienia-ogólne-2">Ustawienia ogólne</a></h4>
+<p><img src="addons/list/kastrat/images/settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia ogólne" /></p>
+<ul>
+<li>Przełącznik wyświetlania przycisku <strong>Podejdź do celu</strong>.</li>
+<li>Przełącznik wyświetlania wiadomości podczas wysłania żądania ataku do aktualnego celu.</li>
+<li>Opcjonalne atakowanie graczy poszukiwanych listem gończym na mapach <span style="color: #FEC20C;">z warunkowym PvP</span>.</li>
+</ul>
+<h4 id="skróty-klawiszowe"><a class="header" href="#skróty-klawiszowe">Skróty klawiszowe</a></h4>
+<p><img src="addons/list/kastrat/images/hotkey-settings.png" class="right" style="padding-left: 10px;" alt="Skróty klawiszowe" /></p>
+Wewnątrz dodatku dostępne są również dwa skróty klawiszowe:
+<ul>
+<li>włączanie/wyłączanie automatycznego atakowania celu,</li>
+<li>podejście do aktualnego celu.</li>
+</ul>
+<h1 id="okno-aktywnych-ustawień-1"><a class="header" href="#okno-aktywnych-ustawień-1">Okno Aktywnych Ustawień</a></h1>
+<h4 id="ustawienia-ogólne-3"><a class="header" href="#ustawienia-ogólne-3">Ustawienia ogólne</a></h4>
+<p><img src="addons/list/kastrat/images/active-settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia ogólne" /></p>
+<ul>
+<li>Zakres poziomowy, z którego wybierany jest aktualny cel.</li>
+<li>Przycisk <strong>Podejdź do celu</strong>.</li>
+</ul>
+<p><em>Ostatnia aktualizacja: 0.14.4</em></p>
+<div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/better_messages/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="poprawione-powiadomienia"><a class="header" href="#poprawione-powiadomienia">Poprawione Powiadomienia</a></h1>
+<p>Dodatek umożliwia zmianę wyglądu żółtych wiadomości z gry, wyświetlanych np. przy wbiciu poziomu.</p>
+<p><img src="addons/list/better_messages/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-aktywnych-ustawień-2"><a class="header" href="#okno-aktywnych-ustawień-2">Okno Aktywnych Ustawień</a></h1>
+<h4 id="ustawienia-tekstu"><a class="header" href="#ustawienia-tekstu">Ustawienia tekstu</a></h4>
+<p><img src="addons/list/better_messages/images/text-settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia tekstu" /></p>
+<ul>
+<li>Wybór rozmiaru tekstu.</li>
+<li>Wybór koloru tekstu.</li>
+<li>Wybór interakcji z tekstem - po włączeniu konieczne jest zamknięcie wiadomości, aby móc kliknąć elementy pod nią.</li>
+</ul>
+<p><em>Ostatnia aktualizacja: 0.14.4</em></p>
+<div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/online_peers/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="rówieśnicy-online"><a class="header" href="#rówieśnicy-online">Rówieśnicy Online</a></h1>
+<p>Dodatek wyświetla listę rówieśników online - klanowiczy lub przyjaciół, umożliwiając interakcje z każdym z nich.</p>
+<p>Status aktywności rówieśników aktualizuje się automatycznie<sup class="footnote-reference" id="fr-status-updates-1"><a href="#footnote-status-updates">1</a></sup>, w przeciwieństwie do ich pozycji. W celu ograniczenia ilości zapytań wysyłanych przez dodatki zestawu, obecnie jedynym sposobem na odświeżenie pozycji rówieśników jest <strong>ręczne <a href="addons/list/online_peers%5Cindex.html#od%C5%9Bwie%C5%BCanie-listy">odświeżenie listy</a></strong>.</p>
+<p>Wyjątek stanowi sytuacja, gdy rówieśnik znajduje się na tej samej mapie co bohater – wtedy jego pozycja aktualizowana jest na bieżąco<sup class="footnote-reference" id="fr-pos-update-1"><a href="#footnote-pos-update">2</a></sup>.</p>
+<p>Dzięki innowacyjnym rozwiązaniom, dodatek oferuje niespotykany nigdzie indziej zestaw interakcji z rówieśnikami — w tym podgląd profilu gracza bezpośrednio w interfejsie gry!</p>
+<p><img src="addons/list/online_peers/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-ustawień-5"><a class="header" href="#okno-ustawień-5">Okno Ustawień</a></h1>
+<h4 id="lista-rówieśników"><a class="header" href="#lista-rówieśników">Lista rówieśników</a></h4>
+<ul>
+<li>Przełącznik pozwalający wybrać, czy tip rówieśnika ma być wyświetlany zawsze po najechaniu myszką na jego komórkę, czy tylko wtedy, gdy jego opis nie mieści się w oknie.</li>
+<li>Opcjonalne wyświetlanie lokacji rówieśników.</li>
+<li>Opcjonalne wyświetlanie informacji o kolosie lub tytanie w lokacji rówieśnika.
+<img src="addons/list/online_peers/images/colossus-view.png" style="padding: 10px;" alt="Ustawienia listy rówieśników" /></li>
+<li>Dostępne opcje sortowania listy to sortowanie względem:
+<ul>
+<li>poziomu - w przypadku takiego samego poziomu gracze sortowani są alfabetycznie,</li>
+<li>nicku,</li>
+<li>profesji - sortowanie dzieli listę na grupy profesji, które ustawiane są w zależności od <strong>ilości graczy o danej profesji</strong>. Wewnątrz poszczególnych grup gracze sortowani są malejąco według poziomu, następnie alfabetycznie według nicku.</li>
+</ul>
+</li>
+<li>Kolejność sortowania pozwala wybrać "kierunek" sortowania - malejący lub rosnący.</li>
+<li>Wyświetlanie poziomów określa w jaki sposób wyświetlać poziomy graczy z listy. Dostępne opcje to:
+<ul>
+<li><img src="addons/list/online_peers/images/list-settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia listy rówieśników" />Poziom | Poziom operacyjny</li>
+<li>Poziom operacyjny | Poziom</li>
+<li>Tylko poziom operacyjny</li>
+<li>Tylko poziom</li>
+</ul>
+</li>
+</ul>
+<h1 id="okno-aktywnych-ustawień-3"><a class="header" href="#okno-aktywnych-ustawień-3">Okno Aktywnych Ustawień</a></h1>
+<h4 id="zakładki-relacji"><a class="header" href="#zakładki-relacji">Zakładki relacji</a></h4>
+<p><img src="addons/list/online_peers/images/relation-switch.png" class="right" style="padding-left: 10px;" alt="Zakładki relacji" /></p>
+<p>Panel zakładek relacji umożliwia przełączanie pomiędzy listą klanowiczów a listą przyjaciół aktualnie będących online.</p>
+<h4 id="lista-rówieśników-1"><a class="header" href="#lista-rówieśników-1">Lista rówieśników</a></h4>
+<p>Tabela z rówieśnikami wyświetla listę klanowiczy lub przyjaciół online w zależności od wybranej zakładki. W zawartość pojedynczej komórki rówieśnika wchodzą:</p>
+<p><img src="addons/list/online_peers/images/peers-list.png" class="right" style="padding-left: 10px;" alt="Lista rówieśników" /></p>
+<ul>
+<li>nick,</li>
+<li>poziom,</li>
+<li>profesja,</li>
+<li>mapa na której znajduje się gracz,</li>
+<li>koordynaty, jeżeli gracz znajduje się na tej samej mapie co bohater,</li>
+<li>przycisk <strong>+</strong> umożliwiający zaproszenie do grupy.</li>
+</ul>
+<p>Dodatkowe informacje wyświetlane po najechaniu myszką to m.in. nazwa klanu i outfit.</p>
+<p>Jeśli rówieśnik znajduje się na tej samej mapie co bohater, po dwukliku LPM na jego komórkę w liście, bohater automatycznie do niego podejdzie.</p>
+<p>Po kliknięciu PPM na komórkę rówieśnika dostępne jest menu kontekstowe w skład którego wchodzą opcje:</p>
+<p><img src="addons/list/online_peers/images/context-menu.png" class="right" style="padding-left: 10px;" alt="Menu kontekstowe" /></p>
+<ul>
+<li><code>Wyślij wiadomość</code> - rozpoczyna proces wysyłania wiadomości prywatnej do gracza (dostępne jeżeli gracz nie jest wrogiem bohatera).</li>
+<li><code>Pokaż ekwipunek</code> - otwiera okno z ekwipunkiem gracza.</li>
+<li><code>Zaproś do przyjaciół</code> - zaprasza gracza do przyjaciół.</li>
+<li><code>Dodaj do wrogów</code> - dodaje gracza do listy wrogów.</li>
+<li><code>Zaproś do drużyny</code> - zaprasza gracza do drużyny.</li>
+<li><code>Pokaż profil</code> - otwiera okno z profilem gracza.</li>
+</ul>
+<p>Jeśli rówieśnik znajduje się na tej samej mapie co bohater, po najechaniu kursorem na jego komórkę lub kliknięciu jej PPM – pojawia się strzałka wskazująca jego pozycję. Dodatkowo gracz-cel renderowany jest nad wszystkimi obiektami na mapie i otoczony wyraźną ramką.</p>
+<h4 id="odświeżanie-listy"><a class="header" href="#odświeżanie-listy">Odświeżanie listy</a></h4>
+<p><video controls autoplay muted loop playsinline width="400" class="right">
+  <source src="images/list-refresh.mp4" type="video/mp4">
+  Odświeżanie listy.
+</video></p>
+<p>Mechanizm odświeżania pozycji rówieśników w liście działa w sposób znany z aplikacji mobilnych: przewiń listę maksymalnie do góry, a następnie pojawi się ikona, po przeciągnięciu której lista zostanie zaktualizowana.</p>
+<p style="margin-top: 150px;"><em>Ostatnia aktualizacja: 0.14.4</em></p><hr>
+<ol class="footnote-definition"><li id="footnote-status-updates">
+<p>Automatycznie - od razu po zalogowaniu lub wylogowaniu gracza bez konieczności wysyłania zapytań do serwera gry. <a href="#fr-status-updates-1">↩</a></p>
+</li>
+<li id="footnote-pos-update">
+<p>Dokładna pozycja (wraz z koordynatami) aktualizuje się przy każdym kroku rówieśnika. Jeżeli rówieśnik opuści mapę, zapisana pozycja zostaje usunięta (bohater nie wie gdzie znajduje się rówieśnik, aż do odświeżenia listy). <a href="#fr-pos-update-1">↩</a></p>
+</li>
+</ol><div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/smart_forge/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="super-rzemieślnik"><a class="header" href="#super-rzemieślnik">Super Rzemieślnik</a></h1>
+<p>Dodatek umożliwia wykorzystanie przedmiotów z łupu lub ekwipunku jako składników do ulepszania.</p>
+<ul>
+<li>Automatyczne ulepszanie przedmiotów umieszczonych w oknie dodatku przy użyciu wybranych typów łupów z potworów.</li>
+<li>Przycisk <strong>Ulepsz</strong> umożliwiający ulepszanie przedmiotami z ekwipunku bohatera o rzadkości wyższej niż pospolita.</li>
+</ul>
+<p><img src="addons/list/smart_forge/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-ustawień-6"><a class="header" href="#okno-ustawień-6">Okno Ustawień</a></h1>
+<h4 id="tryb-ulepszania"><a class="header" href="#tryb-ulepszania">Tryb ulepszania</a></h4>
+<p><img src="addons/list/smart_forge/images/upgrade-modes.png" class="right" style="padding-left: 10px;" alt="Tryb ulepszania" /></p>
+<ul>
+<li><code>Proste</code> – ulepszanie jednego przedmiotu umieszczonego w oknie dodatku.
+<ul>
+<li>Przedmiot zostanie ulepszony wszystkimi typami przedmiotów wybranymi przez gracza.</li>
+</ul>
+</li>
+<li><code>Po typie</code> – ulepszanie do <strong>3 przedmiotów</strong> osadzonych w oknie dodatku (licząc od lewej):
+<ol>
+<li><strong>Pancerze</strong> – ulepszane wybranymi przez gracza pancerzami.</li>
+<li><strong>Biżuteria</strong> – ulepszana wybraną przez gracza biżuterią.</li>
+<li><strong>Broń</strong> – ulepszana wybraną przez gracza bronią.</li>
+</ol>
+</li>
+<li><code>Hybrydowe</code> – połączenie dwóch poprzednich trybów.
+<ul>
+<li>Jeśli którekolwiek z pól z trybu <code>Po typie</code> jest puste, pozostałe typy przedmiotów zostaną użyte do ulepszania przedmiotu z pola trybu <code>Proste</code>.</li>
+</ul>
+</li>
+</ul>
+<h4 id="przycisk-ulepsz"><a class="header" href="#przycisk-ulepsz">Przycisk Ulepsz</a></h4>
+<p>Dokładne działanie przycisku opisane jest <a href="addons/list/smart_forge%5Cindex.html#przycisk-ulepsz-1">tutaj</a>.</p>
+<p><img src="addons/list/smart_forge/images/upgrade-button-settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia przycisku Ulepsz" /></p>
+<ul>
+<li>Przełącznik wyświetlania przycisku wewnątrz <a href="addons/list/smart_forge%5Cindex.html#okno-aktywnych-ustawie%C5%84">okna aktywnych ustawień</a>.</li>
+<li>Przełącznik ulepszania przedmiotami unikatowymi.</li>
+<li>Przełącznik ulepszania przedmiotami heroicznymi.</li>
+<li>Przełącznik ulepszania przedmiotami z eventów.</li>
+</ul>
+<h4 id="typy-przedmiotów"><a class="header" href="#typy-przedmiotów">Typy przedmiotów</a></h4>
+<p><img src="addons/list/smart_forge/images/item-types-settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia typów przedmiotów" /></p>
+Lista przełączników rodzajów przedmiotów spalanych podczas ulepszania za pomocą dodatku.
+<p>Typ <code>Ulepszenia</code> zużywa wyłącznie ulepszenia o rzadkości pospolitej, unikatowej oraz heroicznej.</p>
+<p><em>Kołczany są zapisane jako strzały, tak samo jest w oknie rzemiosła z gry (?)</em></p>
+<h4 id="schowek-na-przedmioty" style="clear: both; padding-top: 20px;"><a class="header" href="addons/list/smart_forge\index.html#schowek-na-przedmioty">Schowek na przedmioty</a></h4>
+<p>Łup z potworów spełniający aktualne kryteria zostaje przechowany w schowku. Przedmioty z łupu zostaną wykorzystane do ulepszania po jego zapełnieniu.</p>
+<p><img src="addons/list/smart_forge/images/buffer-settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia typów przedmiotów" /></p>
+<ul>
+<li>Suwak umożliwiający wybranie rozmiaru schowka
+<ul>
+<li>Jeżeli opcja <code>Opróżnij schowek przy  ≤ x miejscach w ekwipunku</code> jest włączona, to rozmiar schowka jest aktualizowany dynamicznie na podstawie wolnych miejsc w ekwipunku bohatera.</li>
+</ul>
+</li>
+<li>Możliwość pakowania przedmiotów pospolitych do schowka.</li>
+<li>Możliwość pakowania przedmiotów unikatowych (z wyłączeniem przedmiotów z eventów) do schowka.</li>
+</ul>
+<h4 id="ignorowane-przedmioty"><a class="header" href="#ignorowane-przedmioty">Ignorowane przedmioty</a></h4>
+<p><img src="addons/list/smart_forge/images/ignored-items-setting.png" class="right" style="padding-left: 10px;" alt="Lista ignorowanych przedmiotów" /></p>
+<p>Jeśli nazwa przedmiotu zawiera którekolwiek z wyrażeń z tej listy, nie zostanie on umieszczony w schowku ani zużyty podczas ulepszania za pomocą przycisku <strong>Ulepsz</strong>.</p>
+<h1 id="okno-aktywnych-ustawień-4"><a class="header" href="#okno-aktywnych-ustawień-4">Okno Aktywnych Ustawień</a></h1>
+<h4 id="stan-schowka"><a class="header" href="#stan-schowka">Stan schowka</a></h4>
+<p><img src="addons/list/smart_forge/images/current-buffer-size.png" class="right" style="padding-left: 10px;" alt="Stan schowka" /></p>
+Wewnątrz górnej belki okna wyświetlany jest aktualny stan zapełnienia schowka.
+<h4 id="pola-na-przedmioty"><a class="header" href="#pola-na-przedmioty">Pola na przedmioty</a></h4>
+<p><img src="addons/list/smart_forge/images/item-slots.png" class="right" style="padding-left: 10px;" alt="Pola na przedmioty" /></p>
+<p>Pod górną belką okna wyświetlane są pola na przedmioty przeznaczone do ulepszania. Wyświetlane pola różnią się w zależności od wybranego <a href="addons/list/smart_forge%5Cindex.html#tryb-ulepszania">trybu ulepszania</a>.</p>
+<h4 id="dzienny-limit"><a class="header" href="#dzienny-limit">Dzienny limit</a></h4>
+<p><img src="addons/list/smart_forge/images/item-limit.png" class="right" style="padding-left: 10px;" alt="Dzienny limit" /></p>
+<p>Dzienny limit oznacza ilość spalonych dzisiaj przedmiotów (max 2000). Przedmioty o typie <em>Ulepszenia</em> nie są wliczane w ten limit<sup class="footnote-reference" id="fr-limit-1"><a href="#footnote-limit">1</a></sup>.</p>
+<h4 id="przycisk-ulepsz-1"><a class="header" href="#przycisk-ulepsz-1">Przycisk Ulepsz</a></h4>
+<p><img src="addons/list/smart_forge/images/upgrade-button.png" class="right" style="padding-left: 10px;" alt="Przycisk Ulepsz" /></p>
+<p>Przycisk <strong>Ulepsz</strong>, umożliwia ulepszanie przedmiotami o rzadkości wyższej niż pospolita. W procesie ulepszania brane są pod uwagę jedynie przedmioty znajdujące się w ekwipunku bohatera, które należą do typów określonych w zakładce <a href="addons/list/smart_forge%5Cindex.html#typy-przedmiot%C3%B3w">Typy przedmiotów</a>.</p>
+<h1 id="przykład-działania-dodatku"><a class="header" href="#przykład-działania-dodatku">Przykład działania dodatku</a></h1>
+<p><img src="addons/list/smart_forge/images/example-A.png" class="right" style="padding: 10px;" alt="Przykład-A" /></p>
+<p>Jeżeli mamy włączone ulepszanie <code>Hybrydowe</code>, a użytkownik wybrał typy przedmiotów: <em>Zbroje</em>, <em>Pierścienie</em> i <em>Strzały</em>, to przy ulepszaniu przedmiotu w polu na <code>Pancerze</code> i przedmiotu w polu na ulepszanie <code>Proste</code>, działanie dodatku będzie wyglądało następująco:</p>
+<p><em>Bohater zdobywa łup z potworów</em></p>
+<ol>
+<li>Schowek zapełnia się łupami, które spełniają powyższe kryteria.</li>
+<li>Następuje zatrzymanie bohatera - jest to wymagane do pomyślnego ulepszenia przedmiotów.</li>
+<li>Schowek zostaje opróżniony z łupów typu <em>Zbroje</em>, zostają one zużyte do ulepszenia przedmiotu w polu na <code>Pancerze</code>.</li>
+<li>Schowek zostaje opróżniony z łupów typu <em>Pierścienie</em> i <em>Strzały</em>, zostają one zużyte do ulepszenia przedmiotu w polu na ulepszanie <code>Proste</code>.</li>
+<li>Po pomyślnym ulepszeniu ruch bohatera zostaje odblokowany.</li>
+<li>Jeżeli którykolwiek z ulepszanych przedmiotów został maksymalnie ulepszony, jego slot zostaje odpowiednio zwolniony.</li>
+</ol>
+<p><img src="addons/list/smart_forge/images/example-B.png" alt="Przykład-B" /></p>
+<p style="clear: both;"><em>Ostatnia aktualizacja: 0.14.4</em></p><hr>
+<ol class="footnote-definition"><li id="footnote-limit">
+<p>Teorytycznie nie są, ale gra zwraca informacje jakby były. Ostatecznie liczba może wynieść więcej niż 2000. <a href="#fr-limit-1">↩</a></p>
+</li>
+</ol><div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/better_group_invites/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="zapraszanie-do-grupy"><a class="header" href="#zapraszanie-do-grupy">Zapraszanie Do Grupy</a></h1>
+<p><strong>🔒 <em>Ten dodatek jest dostępny wyłącznie w wersji Premium.</em> 🔒</strong></p>
+<p>Rozbudowane automatyczne wysyłanie zaproszeń do grup.</p>
+<p><img src="addons/list/better_group_invites/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-ustawień-7"><a class="header" href="#okno-ustawień-7">Okno Ustawień</a></h1>
+<h4 id="skróty-klawiszowe-1"><a class="header" href="#skróty-klawiszowe-1">Skróty klawiszowe</a></h4>
+<p><img src="addons/list/better_group_invites/images/hotkey-settings.png" class="right" style="padding-left: 10px;" alt="Skróty klawiszowe" /></p>
+<ul>
+<li>Klawisz do zapraszania odpowiada za zapraszanie graczy znajdujących się w tej samej lokacji co bohater według relacji wybranych w zakładce <a href="addons/list/better_group_invites%5Cindex.html#automatycznie-wysy%C5%82aj-do">automatycznie wysyłaj do</a>.</li>
+<li>Klawisz do masowego zapraszania odpowiada za zapraszanie członków klanu, przyjaciół oraz graczy znajdujących się w tej samej lokacji co bohater.
+<ul>
+<li>Podczas masowego zapraszania graczy na tej samej mapie co bohater pod uwage brane są ustawienia z zakładki <a href="addons/list/better_group_invites%5Cindex.html#automatycznie-wysy%C5%82aj-do">automatycznie wysyłaj do</a>.</li>
+</ul>
+</li>
+</ul>
+<h4 id="opóźnienie-między-zaproszeniami"><a class="header" href="#opóźnienie-między-zaproszeniami">Opóźnienie między zaproszeniami</a></h4>
+<p><img src="addons/list/better_group_invites/images/delay-setting.png" class="right" style="padding-left: 10px;" alt="Opóźnienie między zaproszeniami" /></p>
+<p>Opóźnienie między zaproszeniami określa zakres czasowy w milisekundach między wysyłaniem zaproszeń do grupy.</p>
+<h4 id="automatycznie-wysyłaj-do"><a class="header" href="#automatycznie-wysyłaj-do">Automatycznie wysyłaj do</a></h4>
+<p><img src="addons/list/better_group_invites/images/invite-settings.png" class="right" style="padding-left: 10px;" alt="Automatycznie wysyłaj do" /></p>
+<p>Lista relacji uwzględniana podczas zapraszania oraz masowego zapraszania (graczy z mapy) za pomocą dodatku.</p>
+<h4 id="masowo-zapraszaj"><a class="header" href="#masowo-zapraszaj">Masowo zapraszaj</a></h4>
+<p><img src="addons/list/better_group_invites/images/mass-invite-settings.png" class="right" style="padding-left: 10px;" alt="Masowo zapraszaj" /></p>
+<p>Lista relacji uwzględniana podczas masowego zapraszania za pomocą dodatku.</p>
+<h4 id="lista-wykluczeń"><a class="header" href="#lista-wykluczeń">Lista wykluczeń</a></h4>
+<p><img src="addons/list/better_group_invites/images/exclusion-list.png" class="right" style="padding-left: 10px;" alt="Lista wykluczeń" /></p>
+<p>Jeżeli nick gracza znajduje się na liście wykluczeń, zaproszenie nie zostanie do niego wysłane.</p>
+<h1 id="okno-aktywnych-ustawień-5"><a class="header" href="#okno-aktywnych-ustawień-5">Okno Aktywnych Ustawień</a></h1>
+<p>Ustawienia z tego okna są uwzględniane wyłącznie podczas zapraszania za pomocą przycisków <strong>Zaproś</strong> lub <strong>Zaproś masowo</strong>.</p>
+<p><img src="addons/list/better_group_invites/images/active-settings-window.png" class="right" style="padding-left: 10px;" alt="Okno aktywnych ustawień" /></p>
+<ul>
+<li>Możliwość zapraszania graczy według profesji.
+<ul>
+<li>Filtrowanie graczy z listy kandydatów na podstawie obecnego stanu grupy oraz <strong>wszystkich włączonych</strong> filtrów profesji. Jeżeli filtr jest wyłączony żaden gracz o danej profesji nie zostanie zaproszony.</li>
+</ul>
+</li>
+<li>Możliwość zapraszania graczy według nicków.</li>
+<li>Możliwość zapraszania graczy według poziomów.</li>
+</ul>
+<p style="clear: both;"><em>Ostatnia aktualizacja: 0.14.4</em></p><div style="break-before: page; page-break-before: always;"></div><blockquote>
+<p><strong>⚠️ UWAGA: Dopóki zestaw nie osiągnie stabilnej wersji (1.0.0) mogą pojawiać się błędy oraz zmiany podstawowych funkcjonalności (<a href="addons/list/znacznik/../../download.html#zg%C5%82aszanie-b%C5%82%C4%99d%C3%B3w">Zgłaszanie Błędów</a>)</strong></p>
+</blockquote>
+<h1 id="znacznik"><a class="header" href="#znacznik">Znacznik</a></h1>
+<p>Dodatek umożliwia konfigurowanie ikon oraz podpisów przedmiotów z gry.</p>
+<ul>
+<li>Aliasy lokacji oraz ikony potworów nad przedmiotami z kategorii <code>custom_teleport</code>.</li>
+<li>Ikony typów obrażeń broni.</li>
+<li>Edytowanie ikon, podpisów oraz rzadkości przedmiotów bohatera.</li>
+</ul>
+<p><img src="addons/list/znacznik/images/windows.png" alt="Okna Dodatku" /></p>
+<h1 id="okno-aktywnych-ustawień-6"><a class="header" href="#okno-aktywnych-ustawień-6">Okno Aktywnych Ustawień</a></h1>
+<h4 id="znaczniki-podstawowe"><a class="header" href="#znaczniki-podstawowe">Znaczniki podstawowe</a></h4>
+<p><img src="addons/list/znacznik/images/default-aliases.png" class="right" style="padding-left: 10px;" alt="Znaczniki podstawowe" /></p>
+<ul>
+<li>Przełącznik ikon typów obrażeń broni.
+<ul>
+<li>Opcjonalne wyświetlanie znacznika wewnątrz ramki.</li>
+</ul>
+</li>
+<li>Przełączniki umożliwiające wyświetlanie wyłącznie podpisów lub ikon potworów wewnątrz znaczników podstawowych.</li>
+<li>Lista znaczników podstawowych. Wewnątrz pojedynczej komórki znajdują się:
+<ul>
+<li>Przełącznik wyświetlania podpisu wraz z konfiguracją tekstu.</li>
+<li>Przełącznik wyświetlania ikony wraz z konfiguracją linku do obrazka.</li>
+</ul>
+</li>
+<li>Wyszukiwarka znaczników podstawowych spośród listy.</li>
+</ul>
+<h4 id="twoje-znaczniki"><a class="header" href="#twoje-znaczniki">Twoje znaczniki</a></h4>
+<p><img src="addons/list/znacznik/images/own-aliases.png" class="right" style="padding-left: 10px;" alt="Znaczniki podstawowe" /></p>
+Znaczniki własne umożliwiają zmianę rzadkości, ikony oraz tekstu nad dowolnym przedmiotem bohatera.
+<ul>
+<li>Przełącznik wyświetlania podpisu wraz z konfiguracją tekstu.</li>
+<li>Przełącznik wyświetlanej rzadkości.</li>
+<li>Przełącznik wyświetlania ikony wraz z konfiguracją linku do obrazka.</li>
+</ul>
+<p style="clear: both;"><em>Ostatnia aktualizacja: 0.14.4</em></p><div style="break-before: page; page-break-before: always;"></div><h1 id="nadchodzące-zmiany"><a class="header" href="#nadchodzące-zmiany">Nadchodzące Zmiany</a></h1>
+<p>Poniżej znajduje się lista zmian<sup class="footnote-reference" id="fr-note-1"><a href="#footnote-note">1</a></sup> nadchodzących w kolejnej aktualizacji zestawu wraz z informacją na temat aktualnego postępu prac.</p>
+<h2 id="nadchodząca-wersja"><a class="header" href="#nadchodząca-wersja">Nadchodząca wersja</a></h2>
+<p><strong>0.15.0</strong> - aktualizacja będzie wymagała reinstalacji (z chrome websotre/firefox add-ons) oraz ponownego ustawiania dodatków (taka sytuacja następuje pierwszy i ostatni raz).</p>
+<h1 id="todo"><a class="header" href="#todo">TODO</a></h1>
+<ul>
+<li><input disabled="" type="checkbox"/>
+Umożliwić korzystanie z zestawu na SI.</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Zmieniono sposób przechowywania zmiennych globalnych. Od teraz wszystkie są reprezentowane przy użyciu <code>*const T</code> (raw pointer).</li>
+<li><input disabled="" type="checkbox"/>
+Legendarny Notyfikator (premium (?))</li>
+<li><input disabled="" type="checkbox"/>
+Zapisywanie konfiguracji dodatków per konto margonem, discord.</li>
+<li><input disabled="" type="checkbox"/>
+Dodatek umożliwiający automatyczne wyświetlanie karty "na wierzchu" po rozpoczęciu tury bohatera. (tylko w premium)</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Dokumentacja dodatków oraz planu na przyszłość zestawu. (Jeżeli to czytasz to podziel się swoją opinią na temat książki na naszym <a href="https://discord/gg/dodatki-margonem">discordzie</a> 💖)</li>
+<li><input disabled="" type="checkbox"/>
+Znaczne poszerzenie funkcjonalności dodatku <code>Adaptacyjne Zestawy Do Walki</code>.</li>
+</ul>
+<hr>
+<ol class="footnote-definition"><li id="footnote-note">
+<p>Lista nie zawiera m.in. bugfixów oraz drobnych zmian w poszczególnych dodatkach. Ma ona na celu przedstawienie ogólnego zarysu nadchodzących aktualizacji. <a href="#fr-note-1">↩</a></p>
+</li>
+</ol><div style="break-before: page; page-break-before: always;"></div><h1 id="legalność-zestawu"><a class="header" href="#legalność-zestawu">Legalność Zestawu</a></h1>
+<p><img src="misc/images/priv8-legality.png" alt="Priv8 Legality" />
+~ Priv8 autor <a href="https://gargonem.margoworld.pl">Gargonem</a>, <a href="https://margoworld.pl">MargoWorld</a>.</p>
+<p>Żadna z funkcji zestawu <em>Multipurpose Discord to Margonem Addons</em> <strong>nie wywołuje reakcji antybota ani nie wysyła nietypowych zapytań</strong>.</p>
+<p>Mechanizm kolejkowania zapytań wewnątrz gry pozostaje nienaruszony. MDMA posiada własną kolejkę, która jest uwzględniana tylko wtedy, gdy kolejka gry jest pusta.</p>
+<p>Zestaw nie przechowuje również żadnych danych wewnątrz obiektów globalnych takich jak <code>window</code>, czy też <code>localStorage</code>. Dodatkowo każdy element DOM zestawu jest renderowany wewnątrz shadow DOM co czyni go niewykrywalnym z poziomu kodu JS, w tym kodu gry.</p>
+<h1 id="czy-dostanę-bana"><a class="header" href="#czy-dostanę-bana">Czy Dostanę Bana?</a></h1>
+<p>Nie, jeżeli korzystasz wyłącznie z MDMA. Zestaw jest w pełni niewykrywalny przez antybota i o ile nie korzystasz z innych skryptów twoje konto nie zostanie zbanowane za dodatki.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="często-zadawane-pytania"><a class="header" href="#często-zadawane-pytania">Często zadawane pytania</a></h1>
+<h3 id="1-czy-zestaw-jest-bezpłatny"><a class="header" href="#1-czy-zestaw-jest-bezpłatny">1. Czy zestaw jest bezpłatny?</a></h3>
+<p>Tak, część dodatków jest dostępna za darmo. Aby z nich korzystać, należy dołączyć do naszego <a href="https://discord.gg/dodatki-margonem">serwera Discord</a> i zweryfikować swój adres e-mail na koncie Discord.</p>
+<h3 id="2-jak-otworzyć-zestaw"><a class="header" href="#2-jak-otworzyć-zestaw">2. Jak otworzyć zestaw?</a></h3>
+<p>Domyślnie za pomocą klawisza <code>Tab</code> lub klikając lewym przyciskiem myszy na widżet znajdujący się obok toreb.</p>
+<h3 id="3-czy-zestaw-działa-na-nisi"><a class="header" href="#3-czy-zestaw-działa-na-nisi">3. Czy zestaw działa na NI/SI?</a></h3>
+<p>Zestaw działa na obydwu interfejsach, nowym oraz starym.</p>
+<h3 id="4-czy-zestaw-działa-na-angielskiej-wersji-gry"><a class="header" href="#4-czy-zestaw-działa-na-angielskiej-wersji-gry">4. Czy zestaw działa na angielskiej wersji gry?</a></h3>
+<p>Tak, zestaw działa zarówno na polskiej, jak i angielskiej wersji margonem.</p>
+<h3 id="5-ile-kosztuje-wersja-premium"><a class="header" href="#5-ile-kosztuje-wersja-premium">5. Ile kosztuje wersja premium?</a></h3>
+<p>Na tą chwilę dostępne są trzy pakiety premium:</p>
+<div class="table-wrapper"><table><thead><tr><th>MDMA Starter</th><th>MDMA Plus</th><th>MDMA Gold</th></tr></thead><tbody>
+<tr><td>9,99zł</td><td>42,00zł</td><td>84,00zł</td></tr>
+<tr><td>—</td><td>+1 mies. EKSTRA</td><td>+3 mies. EKSTRA</td></tr>
+</tbody></table>
+</div>
+<p>Więcej informacji na naszym <a href="https://discord.gg/dodatki-margonem">serwerze Discord</a> w kategorii <strong>Premium</strong>.</p>
+<h3 id="6-czy-dostanę-bana-za-korzystanie-z-zestawu"><a class="header" href="#6-czy-dostanę-bana-za-korzystanie-z-zestawu">6. Czy dostanę bana za korzystanie z zestawu?</a></h3>
+<p>Nie, jeżeli korzystasz wyłącznie z MDMA. Zestaw jest w pełni niewykrywalny przez antybota i o ile nie korzystasz z innych skryptów twoje konto nie zostanie zbanowane za dodatki.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+            window.addEventListener('load', function () {
+                window.setTimeout(window.print, 100);
+            });
+        </script>
+
+    </div>
+</body>
+
+</html>

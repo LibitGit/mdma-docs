@@ -1,0 +1,10 @@
+[book]
+authors = ["Libit"]
+language = "pl"
+multilingual = false
+src = "src"
+title = "Multipurpose Discord to Margonem Addons"
+
+[output.html]
+additional-css = ["theme/css/discord-logo.css"]
+git-repository-url = "https://github.com/LibitGit/mdma"

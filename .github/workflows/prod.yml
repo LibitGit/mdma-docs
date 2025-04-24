@@ -1,0 +1,43 @@
+name: Deploy MDMA documentation
+
+on:
+  push:
+    branches:
+      - main  # or your default branch name
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: 'latest'  # You can specify a specific version if needed
+      
+      - name: Build book
+        run: mdbook build
+      
+      - name: Deploy to VPS using SCP
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ vars.DROPLET_IP }}
+          username: root
+          password: ${{ secrets.DROPLET_PASSWORD }}
+          source: "book/*"
+          target: "/var/www/html/mdbook"
+          strip_components: 1
+          rm: true
+      
+      - name: Restart Nginx
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ vars.DROPLET_IP }}
+          username: root
+          password: ${{ secrets.DROPLET_PASSWORD }}
+          script: |
+            systemctl reload nginx

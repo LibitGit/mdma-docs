@@ -9,7 +9,7 @@ Zestaw MDMA jest dostępny **wyłącznie** jako rozszerzenie przeglądarkowe. Ab
 * **Firefox Add-Ons** - WKRÓTCE™
 
 <!-- TODO: Link to extension.zip -->
-1. Zapisz oraz rozpakuj [folder rozszerzenia]() na swoim urządzeniu.
+1. Zapisz oraz rozpakuj [folder rozszerzenia](https://github.com/LibitGit/mdma/releases/download/v0.14.4/extension.zip) na swoim urządzeniu.
 2. Wejdź na **chrome://extensions**
 3. W prawym górnym rogu włącz **Tryb dewelopera**.
 4. Kliknij **Załaduj rozpakowane**.
@@ -42,7 +42,8 @@ MDMA stosuje [wersjonowanie semantyczne](https://semver.org/lang/pl/) (polecam s
 
 # 👻 Wersja Nightly 👻
 
-Link instalacyjny do wersji testowej zestawu znajduje się [TUTAJ]().
+<!-- TODO: Link to extension.zip -->
+Link instalacyjny do wersji testowej zestawu znajduje się [tutaj](https://github.com/LibitGit/mdma/releases/download/v0.14.4/test-extension.zip).
 
 W tej wersji zawsze znajdują się najświeższe zmiany, jednak mogą występować błędy związane z nowymi funkcjonalnościami.
 

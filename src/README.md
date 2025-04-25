@@ -13,7 +13,7 @@ W tej książce znajdziesz komplet informacji o dostępnych dodatkach oraz szcze
 Wszystko znajduje się w pasku bocznym (może być zwinięty na urządzeniach mobilnych), ale oto szybki podgląd zawartości:
 1. [Instalacja](addons/download.md)
 2. [Lista Dodatków](addons/index.md)
-3. [Wstęp Do API](api/index.md)
+3. [Wstęp Do API]()
 4. [Nadchodzące Zmiany](todo/index.md)
 5. [Legalność Zestawu](misc/legality.md)
 6. [Najczęstsze Pytania](misc/faq.md)

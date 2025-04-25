@@ -3,8 +3,8 @@ name: Deploy MDMA documentation
 on:
   push:
     branches:
-      - main  # or your default branch name
-  workflow_dispatch:  # Allows manual triggering
+      - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -17,12 +17,12 @@ jobs:
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
-          mdbook-version: 'latest'  # You can specify a specific version if needed
+          mdbook-version: 'latest'
       
       - name: Build book
         run: mdbook build
       
-      - name: Deploy to VPS using SCP
+      - name: Deploy to Droplet using SCP
         uses: appleboy/scp-action@master
         with:
           host: ${{ vars.DROPLET_IP }}
@@ -33,20 +33,6 @@ jobs:
           strip_components: 1
           rm: true
       
-      - name: Debug Nginx configuration
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ vars.DROPLET_IP }}
-          username: root
-          password: ${{ secrets.DROPLET_PASSWORD }}
-          script: |
-            echo "Checking Nginx configuration..."
-            nginx -t
-            echo "Checking Nginx status..."
-            systemctl status nginx
-            echo "Checking Nginx logs..."
-            tail -n 50 /var/log/nginx/error.log
-      
       - name: Restart Nginx
         uses: appleboy/ssh-action@master
         with:
@@ -55,10 +41,4 @@ jobs:
           password: ${{ secrets.DROPLET_PASSWORD }}
           script: |
             echo "Reloading Nginx..."
-            systemctl reload nginx || {
-              echo "Reload failed, trying to restart..."
-              systemctl restart nginx || {
-                echo "Restart failed. Checking configuration..."
-                nginx -t
-              }
-            }
+            systemctl reload nginx

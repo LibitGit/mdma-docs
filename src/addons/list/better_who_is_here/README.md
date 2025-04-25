@@ -12,7 +12,7 @@ Dodatek wyświetla listę graczy znajdujących się w aktualnej lokacji, umożli
 * **🔒 Funkcja Premium 🔒** Możliwość automatycznego przerwania dobijania gracza, w przypadku:
     * zmiany trasy przez bohatera przed dotarciem do celu,
     * opuszczenia przez cel zasięgu ataku.
-* <p><img src="images/settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia ogólne" /></p>Możliwość otwierania okna aktywnych ustawień za pomocą wbudowaniego do gry widgetu <span style="color: darkorange;">Gracze na mapie</span>.
+* <p><img src="images/settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia ogólne" /></p>Możliwość otwierania okna aktywnych ustawień za pomocą wbudowanego do gry widgetu <span style="color: darkorange;">Gracze na mapie</span>.
 
 #### Lista graczy
 <p><img src="images/player-list-settings.png" class="right" style="padding-left: 10px;" alt="Ustawienia listy graczy" /></p>
@@ -20,7 +20,7 @@ Dodatek wyświetla listę graczy znajdujących się w aktualnej lokacji, umożli
 * Dostępne opcje sortowania listy to sortowanie względem:
   * poziomu - w przypadku takiego samego poziomu gracze sortowani są alfabetycznie,
   * nicku,
-  * profesji - sortowanie dzieli listę na grupy profesji, które ustawiane są w zależności od **ilości graczy o danej profesji**. Wewnątrz poszczególnych grup gracze sortowani są malejąco według poziomu, następnie alfabetycznie według nicku.
+  * profesji - sortowanie dzieli listę na grupy profesji, które ustawiane są w zależności od **liczby graczy o danej profesji**. Wewnątrz poszczególnych grup gracze sortowani są malejąco według poziomu, następnie alfabetycznie według nicku.
 * Kolejność sortowania pozwala wybrać "kierunek" sortowania - malejący lub rosnący.
 * Wyświetlanie poziomów określa w jaki sposób wyświetlać poziomy graczy z listy. Dostępne opcje to: 
   * Poziom | Poziom operacyjny
@@ -47,7 +47,7 @@ Tabela z graczami znajdującymi się w aktualnej lokacji, w zawartość pojedync
 * poziom,
 * profesja.
 
-Komórka jest kolorowana w zależności od relacji oraz przynależności do grupy gracza.
+Kolor komórki gracza zależy od jego relacji względem bohatera. Jeśli jednak należy on do tej samej grupy co bohater, wyświetlany jest kolor grupowy.
 Dodatkowe informacje wyświetlane po najechaniu myszką to m.in. nazwa klanu i outfit.
 
 Po dwukliku LPM na komórkę gracza, bohater automatycznie do niego podejdzie.

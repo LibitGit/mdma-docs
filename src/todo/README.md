@@ -4,7 +4,7 @@ Poniżej znajduje się lista zmian[^note] nadchodzących w kolejnej aktualizacji
 [^note]: Lista nie zawiera m.in. bugfixów oraz drobnych zmian w poszczególnych dodatkach. Ma ona na celu przedstawienie ogólnego zarysu nadchodzących aktualizacji. 
 
 ## Nadchodząca wersja
-**0.15.0** - aktualizacja będzie wymagała reinstalacji (z chrome websotre/firefox add-ons) oraz ponownego ustawiania dodatków (taka sytuacja następuje pierwszy i ostatni raz).
+**0.15.0** - aktualizacja będzie wymagała reinstalacji (z chrome webstore/firefox add-ons) oraz ponownego ustawiania dodatków (taka sytuacja następuje pierwszy i ostatni raz).
 
 # TODO
 
@@ -15,3 +15,5 @@ Poniżej znajduje się lista zmian[^note] nadchodzących w kolejnej aktualizacji
 - [ ] Dodatek umożliwiający automatyczne wyświetlanie karty "na wierzchu" po rozpoczęciu tury bohatera. (tylko w premium)
 - [x] Dokumentacja dodatków oraz planu na przyszłość zestawu. (Jeżeli to czytasz to podziel się swoją opinią na temat książki na naszym [discordzie](https://discord/gg/dodatki-margonem) 💖)
 - [ ] Znaczne poszerzenie funkcjonalności dodatku `Adaptacyjne Zestawy Do Walki`.
+
+<p style="clear: both;"><em>Ostatnia aktualizacja: 25.04.2025</em></p>
